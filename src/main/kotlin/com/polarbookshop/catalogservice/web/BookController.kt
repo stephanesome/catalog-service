@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
-
 @RestController
 @RequestMapping("books")
 class BookController(private val bookService: BookService) {
@@ -22,7 +21,7 @@ class BookController(private val bookService: BookService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun post(@RequestBody book: @Valid Book): Book {
+    fun post(@Valid @RequestBody book:  Book): Book {
         return bookService.addBookToCatalog(book)
     }
 
@@ -33,7 +32,7 @@ class BookController(private val bookService: BookService) {
     }
 
     @PutMapping("{isbn}")
-    fun put(@PathVariable isbn: String?, @RequestBody book: @Valid Book): Book {
+    fun put(@PathVariable isbn: String?, @Valid @RequestBody book: Book): Book {
         return bookService.editBookDetails(isbn, book)
     }
 }

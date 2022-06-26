@@ -18,7 +18,7 @@ class InMemoryBookRepository : BookRepository {
         return if (book != null) Optional.of(book) else Optional.empty()
     }
 
-    override fun existsByIsbn(isbn: String): Boolean {
+    override fun existsByIsbn(isbn: String?): Boolean {
         return books[isbn] != null
     }
 
@@ -32,6 +32,6 @@ class InMemoryBookRepository : BookRepository {
     }
 
     companion object {
-        private val books: MutableMap<String, Book> = ConcurrentHashMap<String, Book>()
+        private val books: MutableMap<String?, Book> = ConcurrentHashMap<String?, Book>()
     }
 }

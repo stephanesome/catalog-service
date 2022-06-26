@@ -27,13 +27,12 @@ class BookService(private val bookRepository: BookRepository) {
     fun editBookDetails(isbn: String?, book: Book): Book {
         return bookRepository.findByIsbn(isbn!!)
             .map { existingBook: Book ->
-                val bookToUpdate =
-                    Book(
-                        existingBook.isbn,
-                        book.title,
-                        book.author,
-                        book.price
-                    )
+                val bookToUpdate = createBook(
+                existingBook.isbn,
+                book.title,
+                book.author,
+                book.price
+            )
                 bookRepository.save(bookToUpdate)
             }
             .orElseGet { addBookToCatalog(book) }
