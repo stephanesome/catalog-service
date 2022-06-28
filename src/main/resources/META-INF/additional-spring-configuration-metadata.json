@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "polar.greeting",
+      "type": "java.lang.String",
+      "description": "Message to Welcome users."
+    }
+  ] }
