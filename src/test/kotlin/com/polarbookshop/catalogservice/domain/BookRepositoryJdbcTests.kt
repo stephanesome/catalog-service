@@ -30,8 +30,8 @@ internal class BookRepositoryJdbcTests {
 
     @Test
     fun findAllBooks() {
-        val book1: Book = createBook("1234561235", "Title", "Author", 12.90)
-        val book2: Book = createBook("1234561236", "Another Title", "Author", 12.90)
+        val book1: Book = createBook("1234561235", "Title", "Author", 12.90, "Polarsophia")
+        val book2: Book = createBook("1234561236", "Another Title", "Author", 12.90, "Polarsophia")
         jdbcAggregateTemplate!!.insert<Any>(book1)
         jdbcAggregateTemplate.insert<Any>(book2)
         val actualBooks = bookRepository!!.findAll()
@@ -45,7 +45,7 @@ internal class BookRepositoryJdbcTests {
     @Test
     fun findBookByIsbnWhenExisting() {
         val bookIsbn = "1234561237"
-        val book: Book = createBook(bookIsbn, "Title", "Author", 12.90)
+        val book: Book = createBook(bookIsbn, "Title", "Author", 12.90, "Polarsophia")
         jdbcAggregateTemplate!!.insert<Book>(book)
         val actualBook: Optional<Book> = bookRepository!!.findByIsbn(bookIsbn)
         assertThat(actualBook).isPresent

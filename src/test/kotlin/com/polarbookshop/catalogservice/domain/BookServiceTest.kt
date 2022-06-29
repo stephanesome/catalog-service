@@ -21,7 +21,7 @@ internal class BookServiceTest {
     @Test
     fun whenBookToCreateAlreadyExistsThenThrows() {
         val bookIsbn = "1234561232"
-        val bookToCreate = createBook(bookIsbn, "Title", "Author", 9.90)
+        val bookToCreate = createBook(bookIsbn, "Title", "Author", 9.90, "Polarsophia")
         `when`(bookRepository!!.existsByIsbn(bookIsbn)).thenReturn(true)
         assertThatThrownBy { bookService!!.addBookToCatalog(bookToCreate) }
             .isInstanceOf(BookAlreadyExistsException::class.java)

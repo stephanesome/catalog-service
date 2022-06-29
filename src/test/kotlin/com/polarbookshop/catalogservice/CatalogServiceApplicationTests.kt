@@ -19,7 +19,7 @@ internal class CatalogServiceApplicationTests {
     @Test
     fun whenGetRequestWithIdThenBookReturned() {
         val bookIsbn = "1231231230"
-        val bookToCreate = createBook(bookIsbn, "Title", "Author", 9.90)
+        val bookToCreate = createBook(bookIsbn, "Title", "Author", 9.90, "Polarsophia")
         val expectedBook: Book = webTestClient
             .post()
             .uri("/books")
@@ -41,7 +41,7 @@ internal class CatalogServiceApplicationTests {
 
     @Test
     fun whenPostRequestThenBookCreated() {
-        val expectedBook = createBook("1231231231", "Title", "Author", 9.90)
+        val expectedBook = createBook("1231231231", "Title", "Author", 9.90, "Polarsophia")
         webTestClient
             .post()
             .uri("/books")
@@ -57,7 +57,7 @@ internal class CatalogServiceApplicationTests {
     @Test
     fun whenPutRequestThenBookUpdated() {
         val bookIsbn = "1231231232"
-        val bookToCreate = createBook(bookIsbn, "Title", "Author", 9.90)
+        val bookToCreate = createBook(bookIsbn, "Title", "Author", 9.90, "Polarsophia")
         val createdBook: Book = webTestClient
             .post()
             .uri("/books")
@@ -66,7 +66,7 @@ internal class CatalogServiceApplicationTests {
             .expectStatus().isCreated
             .expectBody(Book::class.java).value { book -> assertThat(book).isNotNull() }
             .returnResult().responseBody as Book
-        val bookToUpdate = createBook(createdBook.isbn, createdBook.title, createdBook.author, 7.95)
+        val bookToUpdate = createBook(createdBook.isbn, createdBook.title, createdBook.author, 7.95, "Polarsophia")
         webTestClient
             .put()
             .uri("/books/$bookIsbn")
@@ -82,7 +82,7 @@ internal class CatalogServiceApplicationTests {
     @Test
     fun whenDeleteRequestThenBookDeleted() {
         val bookIsbn = "1231231233"
-        val bookToCreate = createBook(bookIsbn, "Title", "Author", 9.90)
+        val bookToCreate = createBook(bookIsbn, "Title", "Author", 9.90, "Polarsophia")
         webTestClient
             .post()
             .uri("/books")

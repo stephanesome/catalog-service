@@ -25,6 +25,8 @@ class Book {
     @Positive(message = "The book price must be greater than zero.")
     var price: Double? = null
 
+    var publisher: String? = null
+
     @CreatedDate
     var createdDate: Instant? = null
 
@@ -35,12 +37,17 @@ class Book {
     var version: Int = 0
 }
 
-fun createBook(isbn: String?, title: String?, author: String?, price: Double?): Book {
+fun createBook(isbn: String?,
+               title: String?,
+               author: String?,
+               price: Double?,
+               publisher: String?): Book {
     val book = Book()
     book.isbn = isbn
     book.title = title
     book.author = author
     book.price = price
+    book.publisher = publisher
     return book
 }
 
@@ -49,6 +56,7 @@ fun updateBook(id: Long?,
                title: String?,
                author: String?,
                price: Double?,
+               publisher: String?,
                createdDate: Instant?,
                lastModifiedDate: Instant?,
                version: Int): Book {
@@ -58,6 +66,7 @@ fun updateBook(id: Long?,
     book.title = title
     book.author = author
     book.price = price
+    book.publisher = publisher
     book.createdDate = createdDate
     book.lastModifiedDate = lastModifiedDate
     book.version = version
