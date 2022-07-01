@@ -52,6 +52,11 @@ tasks.bootRun {
     systemProperty("spring.profiles.active", "testdata")
 }
 
+tasks.bootBuildImage {
+    imageName = project.name
+    environment["BP_JVM_VERSION"] = "17.*"
+}
+
 dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")

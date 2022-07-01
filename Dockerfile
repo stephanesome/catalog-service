@@ -1,11 +1,15 @@
-# build application
-FROM gradle:7.4.2-jdk17-alpine AS build
-WORKDIR /workspace
-COPY . .
-RUN  ./gradlew bootJar --no-daemon
+FROM openjdk:17-alpine AS extraction
+WORKDIR workspace
+ARG JAR_FILE=build/libs/*.jar
+COPY ${JAR_FILE} app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
 # setup image
 FROM openjdk:17-alpine AS image
-EXPOSE 8080
-RUN mkdir /app
-COPY --from=build /workspace/build/libs/*.jar /app/app.jar
-ENTRYPOINT ["java", "-jar","/app/app.jar"]
+RUN addgroup -S appgroup && adduser -S spring -G appgroup
+USER spring
+WORKDIR workspace
+COPY --from=extraction workspace/dependencies/ ./
+COPY --from=extraction workspace/spring-boot-loader/ ./
+COPY --from=extraction workspace/snapshot-dependencies/ ./
+COPY --from=extraction workspace/application/ ./
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
