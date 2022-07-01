@@ -21,7 +21,6 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          cache: "gradle"
       - name: Code vulnerability scanning
         uses: anchore/scan-action@v3
         id: scan
